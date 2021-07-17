@@ -1,5 +1,4 @@
 from utils.display import display
-from colors import bcolors
 import speech_recognition as sr
 import time
 from gpiozero import LED
@@ -15,13 +14,13 @@ def hearing():
 
     try:
         with mic as source:
-            print(bcolors.OKCYAN +"Sto ascoltando...")
+            print("Sto ascoltando...")
             # display("In Ascolto...")
             led.on()
             r.adjust_for_ambient_noise(source)
             audio = r.listen(source, 3)
         
-        print(bcolors.OKCYAN + 'Ho finito di ascoltare')
+        print('Ho finito di ascoltare')
         led.off()
         # display("Finito")
         time.sleep(1)

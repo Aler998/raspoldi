@@ -1,4 +1,3 @@
-from time import sleep
 from utils.loadNumber import loadNumber
 import mysql.connector as mysql
 from dotenv.main import dotenv_values

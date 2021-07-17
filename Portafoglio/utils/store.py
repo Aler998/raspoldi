@@ -1,6 +1,5 @@
 from utils.display import display, display_lines
 from dotenv.main import dotenv_values
-from colors import bcolors
 import datetime
 import os
 import mysql.connector as mysql
@@ -55,10 +54,10 @@ def save(obj):
     cursor.execute(add, obj)
 
     if(obj[0]):
-        print(bcolors.OKGREEN + 'Transazione: Aggiunta' + '\n' + 'Euro: ' + str(obj[1]) + '\n' + 'Descrizione: ' + obj[2] + '\n')
+        print('Transazione: Aggiunta' + '\n' + 'Euro: ' + str(obj[1]) + '\n' + 'Descrizione: ' + obj[2] + '\n')
         display_lines(['Transazione: Aggiunta', 'Euro: ' + str(obj[1]), 'Descrizione: ' + obj[2]])
     else:
-        print(bcolors.OKGREEN + 'Transazione: Togli' + '\n' + 'Euro: ' + str(obj[1]) + '\n' + 'Descrizione: ' + obj[2] + '\n')
+        print('Transazione: Togli' + '\n' + 'Euro: ' + str(obj[1]) + '\n' + 'Descrizione: ' + obj[2] + '\n')
         display_lines(['Transazione: Togli', 'Euro: ' + str(obj[1]), 'Descrizione: ' + obj[2]])
     
     conn.commit()
