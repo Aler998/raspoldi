@@ -1,6 +1,6 @@
 const express = require('express')
 require('dotenv').config()
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const cors = require('cors')
 const app = express()
 
@@ -28,7 +28,4 @@ app.get('/transazioni', (req, res) => {
 
 app.listen(5000, () => {
     console.log(`Example app listening at http://localhost:5000`)
-    console.log(process.env.DB_HOST)
-    console.log(process.env.DB_PASSWORD)
-    console.log(process.env.DB_NAME)
 })

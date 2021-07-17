@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 
+const ip = "192.168.1.236"
 
 const useStyles = makeStyles({
   table: {
@@ -23,7 +24,7 @@ const App = () => {
   const classes = useStyles();
 
   const fetch = async () => {
-    await axios.get('http://localhost:5000/transazioni')
+    await axios.get('http://' + ip + ':5000/transazioni')
         .then(res => {
           console.log(res.data)
           setrows(...rows, res.data)
