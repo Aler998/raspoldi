@@ -21,6 +21,9 @@ def TGactive():
     out = requests.get(url)
     dec = out.json()
 
+    if not dec['result']:
+        tr = False
+
     for update in dec['result']:
         if str(update["message"]["chat"]["id"]) == config["CHAT_ID"]:
             #split della string

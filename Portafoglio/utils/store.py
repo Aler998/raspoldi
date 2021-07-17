@@ -1,3 +1,4 @@
+from Portafoglio.utils.loadNumber import loadNumber
 from utils.display import display, display_lines
 from dotenv.main import dotenv_values
 import datetime
@@ -16,6 +17,10 @@ def store(text):
     #testo tipo :
     #1) Aggiungi 150 per aquisto amazon
     #2) Togli 150 per aquisto amazon
+    if(text.upper() == "REPORT"):
+        loadNumber()
+        return
+
     try:
         arr = text.split()
     except Exception:
