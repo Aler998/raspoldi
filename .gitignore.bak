@@ -1,5 +1,8 @@
-/venv
-/.env
-/__pycache__
-/utils/__pycache__
-/prove.py
+/Portafoglio/venv
+/Portafoglio/.env
+/Portafoglio/__pycache__
+/Portafoglio/utils/__pycache__
+/Portafoglio/prove.py
+/Server/backend/node_modules
+/Server/frontend/node_modules
+/Server/backend/.env
