@@ -1,0 +1,5 @@
+/Portafoglio/venv
+/Portafoglio/.env
+/Portafoglio/__pycache__
+/Portafoglio/utils/__pycache__
+/Portafoglio/prove.py
