@@ -33,7 +33,8 @@ def TGactive():
                 continue
             # print(arr)
             #controllo se c'è la descrizione
-            desc, end = False
+            desc = False
+            end = False
             descrizione = ""
             for word in arr:
                 if(desc):

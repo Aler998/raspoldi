@@ -1,3 +1,4 @@
+from utils.display import display_string
 from getFromTelegram import TGinactive, TGactive, sendMSG
 import threading
 from utils.loadNumber import loadNumber
@@ -63,6 +64,7 @@ while True:
         cod = store(text)
         if(cod == 300):
             print('Non ho capito')
+            display_string("Non ho capito")
         #alla fine emetto l'evento che è stato schiacciato il bottone
         buttonPressed = False
     else:
