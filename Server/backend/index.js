@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/transazioni', (req, res) => {
-    connection.query('SELECT * FROM transazioni', (error, result, fields) => {
+    connection.query('SELECT * FROM transazioni ORDER BY created_at DESC LIMIT 12', (error, result, fields) => {
         if (error) throw error
         res.send(result)
     })

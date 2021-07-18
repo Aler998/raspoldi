@@ -33,27 +33,40 @@ def TGactive():
                 continue
             # print(arr)
             #controllo se c'è la descrizione
-            desc = False
+            desc, end = False
             descrizione = ""
             for word in arr:
                 if(desc):
                     if(descrizione != ""):
                         descrizione += " "
-                    descrizione += word
+                    if(word.upper() == "IN"):
+                        end = True
+                    if not end:
+                        descrizione += word
                 if(word.upper() == "PER" or word == "*" or word.upper() == "X"):
                     desc = True
+
+            cat = False
+            categoria = ""
+            for word in arr:
+                if(cat):
+                    if(categoria != ""):
+                        categoria += " "
+                    categoria += word
+                if(word.upper() == "IN"):
+                    cat = True
             
             if desc:
                 if arr[0] in add:
                     try:
-                        record = (update["update_id"], update["message"]["message_id"], update["message"]["from"]["username"], str(today.date()), True, int(arr[1]), descrizione)
+                        record = (update["update_id"], update["message"]["message_id"], update["message"]["from"]["username"], str(today.date()), True, int(arr[1]), descrizione, categoria)
                     except ValueError:
                         saveERR(update["update_id"], "ValueError", "Messaggio formattato male, probabilmente non hai messo il valore al secondo posto")
                         continue
                     tr = saveTGtransaction(record)
                 elif arr[0] in rm:
                     try:
-                        record = (update["update_id"], update["message"]["message_id"], update["message"]["from"]["username"], str(today.date()), False, int(arr[1]), descrizione)
+                        record = (update["update_id"], update["message"]["message_id"], update["message"]["from"]["username"], str(today.date()), False, int(arr[1]), descrizione, categoria)
                     except ValueError:
                         saveERR(update["update_id"], "ValueError", "Messaggio formattato male, probabilmente non hai messo il valore al secondo posto")
                         continue
@@ -61,6 +74,8 @@ def TGactive():
                 else:
                     #invia un messaggio al bot di non ho capito
                     saveERR(update["update_id"], "Unknown command", "Comando Sconosciuto")
+            elif not cat:
+                saveERR(update["update_id"], "Missing Category", "Categoria mancante")
             else:
                 saveERR(update["update_id"], "Missing Description", "Descrizione mancante")
 
@@ -96,15 +111,15 @@ def saveTGtransaction(record):
     #vado a salvare in database
     if not exist:
         add = ("INSERT INTO transazioni_telegram"
-                "(update_id, message_id, username, date, tipo, euro, descrizione)"
-                "VALUES (%s, %s, %s, %s, %s, %s, %s)")
+                "(update_id, message_id, username, date, tipo, euro, descrizione, categoria)"
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
         cursor.execute(add, record)
         conn.commit()
         #messaggio a telegram della transazione salvata
         if record[4]:
-            txt = "Transazione\nTipo: Guadagno \nEuro: " + str(record[5]) + "\nDescrizione: " + record[6]
+            txt = "Transazione\nTipo: Guadagno \nEuro: " + str(record[5]) + "\nDescrizione: " + record[6] + "\Categoria: " + record[7]
         else:
-            txt = "Transazione\nTipo: Spesa \nEuro: " + str(record[5]) + "\nDescrizione: " + record[6]
+            txt = "Transazione\nTipo: Spesa \nEuro: " + str(record[5]) + "\nDescrizione: " + record[6] + "\Categoria: " + record[7]
         sendMSG(txt)
         
         

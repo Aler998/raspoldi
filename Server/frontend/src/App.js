@@ -1,45 +1,32 @@
 import './App.css';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import {Container, Row, Col} from 'react-bootstrap'
+import Header from './components/Header';
+import LastMonthTable from './components/LastMonthTable';
 
-const ip = "192.168.1.236"
+const ip_t = "192.168.1.236"
+const ip = "127.0.0.1"
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
 
 const App = () => {
 
-  const [rows, setrows] = useState([])
-  const classes = useStyles();
-
-  const fetch = async () => {
-    await axios.get('http://' + ip + ':5000/transazioni')
-        .then(res => {
-          console.log(res.data)
-          setrows(...rows, res.data)
-        }, err => {
-          console.log(err)
-        })
-  }
-
-  useEffect(() => {
-    fetch()
-  }, [])
-
   return (
     <div className="App">
-      <TableContainer component={Paper}>
+
+      <Container fluid>
+        <Row>
+          <Col>
+            <Header />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm md={8} ><LastMonthTable  ip={ip}/></Col>
+          <Col sm md={4}>sm=true</Col>
+          <Col sm md={8}>sm=true</Col>
+        </Row>
+      </Container>
+      {/* <TableContainer component={Paper}>
         <Table className={classes.table} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
@@ -66,7 +53,7 @@ const App = () => {
             }
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </div>
   );
 }
