@@ -20,7 +20,16 @@ app.get('/', (req, res) => {
 })
 
 app.get('/transazioni', (req, res) => {
-    connection.query('SELECT * FROM transazioni ORDER BY created_at DESC LIMIT 12', (error, result, fields) => {
+    connection.query('SELECT * FROM transazioni ORDER BY created_at DESC LIMIT 11', (error, result, fields) => {
+        if (error) throw error
+        res.send(result)
+    })
+})
+
+app.get('/totale_mensile', (req, res) => {
+    const today = new Date()
+    const query = "SELECT tipo, SUM(euro) as total FROM transazioni WHERE created_at BETWEEN '" + String(today.getFullYear()) + "-" + String(today.getMonth() + 1) + "-01' AND '" + + String(today.getFullYear()) + "-" + String(today.getMonth() + 1) + "-31' GROUP BY tipo"
+    connection.query(query, (error, result, fields) => {
         if (error) throw error
         res.send(result)
     })

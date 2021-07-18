@@ -10,10 +10,9 @@ const LastMonthTable = (props) => {
     const fetch = async () => {
         await axios.get('http://' + props.ip + ':5000/transazioni')
             .then(res => {
-            console.log(res.data)
-            setrows(...rows, res.data)
+                setrows(...rows, res.data)
             }, err => {
-            console.log(err)
+                console.log(err)
             })
     }
 
