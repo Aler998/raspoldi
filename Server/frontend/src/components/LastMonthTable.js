@@ -16,6 +16,15 @@ const LastMonthTable = (props) => {
             })
     }
 
+    const cancel = async (id) => {
+        await axios.get('http://' + props.ip + ':5000/delete/'+ id)
+        .then(res => {
+            setrows(...rows, res.data)
+        }, err => {
+            console.log(err)
+        }) 
+    }
+
     useEffect(() => {
         fetch()
     }, [])
@@ -30,6 +39,7 @@ const LastMonthTable = (props) => {
                         <th>Euro</th>
                         <th>Descrizione</th>
                         <th>Created At</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +55,7 @@ const LastMonthTable = (props) => {
                                 <td>{row.euro}</td>
                                 <td>{row.descrizione}</td>
                                 <td>{arr[0]}</td>
+                                <td><i onClick={() => cancel(row.id)} className="fas fa-trash" style={{cursor: 'pointer'}}></i></td>
                             </tr>
                         )})
                     }

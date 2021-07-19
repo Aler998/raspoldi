@@ -112,7 +112,7 @@ def saveTGtransaction(record):
     #vado a salvare in database
     if not exist:
         add = ("INSERT INTO transazioni_telegram"
-                "(update_id, message_id, username, date, tipo, euro, descrizione, categoria)"
+                "(update_id, message_id, username, created_at, tipo, euro, descrizione, categoria)"
                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
         cursor.execute(add, record)
         conn.commit()
@@ -149,7 +149,7 @@ def saveERR(update_id, error_type, msg):
     if not exist:
         err = (str(today.date()), error_type, update_id)
         add = ("INSERT INTO telegram_errors"
-            "(date, error_type, update_id)"
+            "(created_at, error_type, update_id)"
             "VALUES (%s, %s, %s)")
         cursor.execute(add, err)
         conn.commit()

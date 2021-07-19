@@ -5,6 +5,7 @@ import {Container, Row, Col} from 'react-bootstrap'
 import Header from './components/Header';
 import LastMonthTable from './components/LastMonthTable';
 import PieSumChart from './components/Charts/PieSumChart';
+import BarCategoryChart from './components/Charts/BarCategoryChart';
 
 const ip_t = "192.168.1.236"
 const ip = "127.0.0.1"
@@ -17,13 +18,16 @@ const App = () => {
 
       <Container fluid>
         <Row>
-          <Col>
+          <Col style={{padding: '0'}}>
             <Header />
           </Col>
         </Row>
-        <Row>
+        <Row className="p-sm-4">
           <Col sm md={8} ><LastMonthTable  ip={ip}/></Col>
           <Col sm md={4}><PieSumChart ip={ip}/></Col>
+        </Row>
+        <Row className="p-sm-5">
+          <Col><BarCategoryChart ip={ip}/></Col>
         </Row>
       </Container>
       {/* <TableContainer component={Paper}>
