@@ -20,14 +20,29 @@ app.get('/', (req, res) => {
     res.send('hello world')
 })
 
-// app.get('/delete/:id', (req, res) => {
-//     res.send('hello world')
-//     const query = "DELETE FROM transazioni where"
-//     connection.query(query, (error, result, fields) => {
-//         if (error) throw error
-//         res.send(result)
-//     })
-// })
+app.get('/delete/:id', (req, res) => {
+    console.log(req.params.id)
+    try {
+        const query = "DELETE FROM transazioni WHERE id = " + req.params.id
+        connection.query(query, (error, result, fields) => {
+            if (error) throw error
+            res.status(200).send('ok')
+        })
+    } catch (error) {
+        try {
+            const query = "DELETE FROM transazioni_telegram WHERE id = " + req.params.id
+            connection.query(query, (error, result, fields) => {
+                if (error) throw error
+                res.status(200).send('ok')
+            })
+        } catch (error) {
+            res.status(404).send('This id does not exist')
+        }
+        
+    }
+
+    
+})
 
 app.get('/transazioni', (req, res) => {
 

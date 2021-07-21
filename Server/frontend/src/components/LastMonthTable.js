@@ -19,7 +19,13 @@ const LastMonthTable = (props) => {
     const cancel = async (id) => {
         await axios.get('http://' + props.ip + ':5000/delete/'+ id)
         .then(res => {
-            setrows(...rows, res.data)
+            if (res.status === 200) {
+                setrows(rows.filter((obj) => {
+                    return obj.id !== id
+                }))
+            } else if (res.status === 300) {
+                console.log('Something went wrong')
+            }
         }, err => {
             console.log(err)
         }) 
